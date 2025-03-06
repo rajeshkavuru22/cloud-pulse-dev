@@ -23,7 +23,6 @@ public class ProjectController {
 
     @GetMapping("/{project_id}")
     public Project getProject(@PathVariable("project_id") String projectId) throws IOException {
-       System.out.println(projectService.getProjectById(projectId).getClass().getSimpleName());
         return projectService.getProjectById(projectId);
     }
 }

@@ -26,7 +26,6 @@ public class GetProjectApi {
         ResponseEntity<String> projectResponse = restTemplate.exchange(getProjectApiUrl, HttpMethod.GET, entity, String.class);
         String apiResponse = projectResponse.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(getProjectApiUrl);
         return objectMapper.convertValue(apiResponse,Object.class);
     }
 }
