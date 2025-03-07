@@ -35,12 +35,13 @@ public class ResourcesService {
             Map eachResource = (LinkedTreeMap) resource;
             String assetType = (String) eachResource.get("assetType");
 
-            if(assetType.contains("compute.googleapis.com")) {
+            if(assetType.contains(String.format("%s.googleapis.com"))) {
                 computeEngineResourcesList.add(eachResource);
             }
         }
         return computeEngineResourcesList;
     }
+
 
     public ArrayList databaseResources(String projectId) throws Exception{
         ArrayList allResourcesList = getResourcesList(projectId);
@@ -83,5 +84,19 @@ public class ResourcesService {
             }
         }
         return networkResourcesList;
+    }
+
+    public ArrayList storageResources(String projectId) throws Exception {
+        ArrayList allResourcesList = getResourcesList(projectId);
+        ArrayList storageResourcesList = new ArrayList<>();
+        for (Object resource : allResourcesList) {
+            Map eachResource = (LinkedTreeMap) resource;
+            String assetType = (String) eachResource.get("assetType");
+
+            if (assetType.contains("storage.googleapis.com/")) {
+                storageResourcesList.add(eachResource);
+            }
+        }
+        return storageResourcesList;
     }
 }

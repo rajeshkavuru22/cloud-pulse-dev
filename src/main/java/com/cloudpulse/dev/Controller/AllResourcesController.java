@@ -27,7 +27,6 @@ public class AllResourcesController {
         return resourcesService.computeEngineResources(projectId);
     }
 
-
     @GetMapping("/all-resources/database-service")
     public ArrayList databaseResourcesList(@PathVariable("project_id") String projectId) throws Exception{
         return resourcesService.databaseResources(projectId);
@@ -42,4 +41,11 @@ public class AllResourcesController {
     public ArrayList networkResourcesList(@PathVariable("project_id") String projectId) throws Exception {
         return resourcesService.networkResources(projectId);
     }
+
+    @GetMapping("/all-resources/storage-service")
+    public ArrayList storageResourcesList(@PathVariable("project_id") String projectId) throws Exception {
+        return resourcesService.storageResources(projectId);
+    }
+
+
 }
