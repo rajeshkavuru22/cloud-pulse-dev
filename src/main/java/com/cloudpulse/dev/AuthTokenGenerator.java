@@ -10,7 +10,7 @@ public class AuthTokenGenerator {
 
     public static String getAccessToken() throws IOException {
         // Loading the service account key JSON file
-        FileInputStream serviceAccountStream = new FileInputStream("C:\\Cloud Pulse\\dev\\src\\main\\resources\\service-account-data-jsonfile.json");
+        FileInputStream serviceAccountStream = new FileInputStream(".\\resources\\service-account-data-jsonfile.json");
 
         // Authenticate using GoogleCredentials
         GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccountStream)
