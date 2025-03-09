@@ -19,7 +19,7 @@ public class GetAllResourcesApi {
         headers.set("Authorization", "Bearer " + token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        //Get Resources
+        //Getting Resources
         ResponseEntity<String> resourcesResponse = restTemplate.exchange(getAllResourcesApiUrl, HttpMethod.GET, entity, String.class);
         String apiResponse = resourcesResponse.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
