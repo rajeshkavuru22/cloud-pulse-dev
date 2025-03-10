@@ -243,9 +243,9 @@ public class ResourcesService {
             //"file.googleapis.com/Backup",
 
             // Persistent Disks (Block Storage)
-            "compute.googleapis.com/Disk",
-            "compute.googleapis.com/Snapshot",
-            "compute.googleapis.com/Image"
+            // "compute.googleapis.com/Disk",
+            // "compute.googleapis.com/Snapshot",
+            // "compute.googleapis.com/Image"
 
             // Cloud Storage Transfer Service
 //            "storagetransfer.googleapis.com/AgentPool",
