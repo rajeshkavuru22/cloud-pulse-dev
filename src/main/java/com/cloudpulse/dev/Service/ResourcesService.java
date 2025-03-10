@@ -26,20 +26,33 @@ public class ResourcesService {
         return (List<Object>) resourcesList;
     }
 
-    // Reusable Method to Sort By Their AssetType
-
-    public void sortingByAssetType(List<String> serviceAssets, List<Object> serviceList,String projectId) throws Exception{
+    public Map<String , List<Object>> fetchResources(String projectId) throws Exception{
         List<Object> allResourcesList = getAllResourcesList(projectId);
+        Map<String , List<Object>> allResources = new HashMap<>();
+        List<Object> computeResources = new ArrayList<>();
+        List<Object> storageResources = new ArrayList<>();
+        List<Object> databaseResources = new ArrayList<>();
+
         allResourcesList.forEach(resource -> {
-            //System.out.println(resource.getClass().getSimpleName());
             Map<String,Object> eachResource = ( LinkedTreeMap<String,Object> ) resource;
             String assetType = (String) eachResource.get("assetType");
 
-            if(serviceAssets.contains(assetType)) {
-                serviceList.add(eachResource);
+            if(computeAssets.contains(assetType)) {
+                computeResources.add(eachResource);
+            }
+            if(storageAssets.contains(assetType)){
+                storageResources.add(eachResource);
+            }
+            if(databasesAssets.contains(assetType)){
+                databaseResources.add(eachResource);
             }
         });
 
+        allResources.put("compute",computeResources);
+        allResources.put("storage", storageResources);
+        allResources.put("database",databaseResources);
+
+        return allResources;
     }
 
     // COMPUTE SERVICE
@@ -47,12 +60,12 @@ public class ResourcesService {
     List<String> computeAssets = Arrays.asList(
             // Virtual Machines & Bare Metal
             "compute.googleapis.com/Instance",
-            "compute.googleapis.com/InstanceTemplate",
-            "compute.googleapis.com/InstanceGroup",
-            "compute.googleapis.com/RegionInstanceGroupManager",
-            "compute.googleapis.com/InstanceGroupManager",
-            "compute.googleapis.com/NodeGroup",
-            "baremetalsolution.googleapis.com/Instance",
+//            "compute.googleapis.com/InstanceTemplate",
+//            "compute.googleapis.com/InstanceGroup",
+//            "compute.googleapis.com/RegionInstanceGroupManager",
+//            "compute.googleapis.com/InstanceGroupManager",
+//            "compute.googleapis.com/NodeGroup",
+              "baremetalsolution.googleapis.com/Instance",
 
             // Kubernetes & Containers
             "container.googleapis.com/Cluster",
@@ -61,29 +74,22 @@ public class ResourcesService {
             // Serverless Compute
             "run.googleapis.com/Service",
             "run.googleapis.com/Job",
-            "cloudfunctions.googleapis.com/CloudFunction",
+            "cloudfunctions.googleapis.com/CloudFunction"
 
-            // App Hosting
-            "appengine.googleapis.com/Application",
-            "appengine.googleapis.com/Service",
-            "appengine.googleapis.com/Version",
-            "appengine.googleapis.com/Instance",
-
-            // Compute Infrastructure & Networking
-            "compute.googleapis.com/Disk",
-            "compute.googleapis.com/Snapshot",
-            "compute.googleapis.com/Image",
-            "compute.googleapis.com/MachineType",
-            "compute.googleapis.com/AcceleratorType",
-            "tpu.googleapis.com/Node"
+//            // App Hosting
+//            "appengine.googleapis.com/Application",
+//            "appengine.googleapis.com/Service",
+//            "appengine.googleapis.com/Version",
+//            "appengine.googleapis.com/Instance",
+//
+//            // Compute Infrastructure & Networking
+//            "compute.googleapis.com/Disk",
+//            "compute.googleapis.com/Snapshot",
+//            "compute.googleapis.com/Image",
+//            "compute.googleapis.com/MachineType",
+//            "compute.googleapis.com/AcceleratorType",
+//            "tpu.googleapis.com/Node"
     );
-
-
-    public List<Object> computeEngineResources(String projectId) throws Exception {
-        List<Object> computeEngineResourcesList = new ArrayList<>();
-        sortingByAssetType(computeAssets,computeEngineResourcesList,projectId);
-        return computeEngineResourcesList;
-    }
 
     // SECURITY SERVICE
 
@@ -132,12 +138,6 @@ public class ResourcesService {
             "beyondcorp.googleapis.com/ClientConnectorService",
             "beyondcorp.googleapis.com/ClientGateway"
     );
-
-    public List<Object> securityResources(String projectId) throws Exception{
-        List<Object> securityResourcesList = new ArrayList<>();
-        sortingByAssetType(securityAssets,securityResourcesList,projectId);
-        return securityResourcesList;
-    }
 
     // NETWORKING SERVICE
 
@@ -191,27 +191,20 @@ public class ResourcesService {
             "networkmanagement.googleapis.com/ConnectivityTest"
     );
 
-
-    public List<Object> networkingResources(String projectId) throws Exception{
-        List<Object> networkResourcesList = new ArrayList<>();
-        sortingByAssetType(networkingAssets,networkResourcesList,projectId);
-        return networkResourcesList;
-    }
-
     // DATABASE SERVICE
 
     List<String> databasesAssets = Arrays.asList(
             // Cloud SQL
             "sqladmin.googleapis.com/Instance",
             "sqladmin.googleapis.com/Database",
-            "sqladmin.googleapis.com/BackupRun",
-            "sqladmin.googleapis.com/User",
-            "sqladmin.googleapis.com/SslCert",
+            //"sqladmin.googleapis.com/BackupRun",
+            //"sqladmin.googleapis.com/User",
+            //"sqladmin.googleapis.com/SslCert",
 
             // Cloud Spanner
             "spanner.googleapis.com/Instance",
             "spanner.googleapis.com/Database",
-            "spanner.googleapis.com/Backup",
+            //"spanner.googleapis.com/Backup",
 
             // Firestore / Datastore
             "firestore.googleapis.com/Database",
@@ -221,7 +214,7 @@ public class ResourcesService {
             "bigtableadmin.googleapis.com/Instance",
             "bigtableadmin.googleapis.com/Cluster",
             "bigtableadmin.googleapis.com/Table",
-            "bigtableadmin.googleapis.com/Backup",
+            //"bigtableadmin.googleapis.com/Backup",
 
             // Memorystore (Redis & Memcached)
             "redis.googleapis.com/Instance",
@@ -229,51 +222,39 @@ public class ResourcesService {
 
             // AlloyDB
             "alloydb.googleapis.com/Cluster",
-            "alloydb.googleapis.com/Instance",
-            "alloydb.googleapis.com/Backup",
+            "alloydb.googleapis.com/Instance"
+            //"alloydb.googleapis.com/Backup",
 
             // Cloud SQL for MySQL, PostgreSQL, and SQL Server
-            "sqladmin.googleapis.com/Operation"
+            //"sqladmin.googleapis.com/Operation"
     );
-
-    public List<Object> databaseResources(String projectId) throws Exception{
-        List<Object> databaseResourcesList = new ArrayList<>();
-        sortingByAssetType(databasesAssets,databaseResourcesList,projectId);
-        return databaseResourcesList;
-    }
 
     // STORAGE SERVICE
 
     List<String> storageAssets = Arrays.asList(
             // Cloud Storage
             "storage.googleapis.com/Bucket",
-            "storage.googleapis.com/Object",
-            "storage.googleapis.com/HmacKey",
-            "storage.googleapis.com/NotificationConfig",
+//            "storage.googleapis.com/Object",
+//            "storage.googleapis.com/HmacKey",
+//            "storage.googleapis.com/NotificationConfig",
 
             // Filestore (Cloud File Storage)
             "file.googleapis.com/Instance",
-            "file.googleapis.com/Backup",
+            //"file.googleapis.com/Backup",
 
             // Persistent Disks (Block Storage)
             "compute.googleapis.com/Disk",
             "compute.googleapis.com/Snapshot",
-            "compute.googleapis.com/Image",
+            "compute.googleapis.com/Image"
 
             // Cloud Storage Transfer Service
-            "storagetransfer.googleapis.com/AgentPool",
-            "storagetransfer.googleapis.com/TransferJob",
-            "storagetransfer.googleapis.com/TransferOperation",
-
-            // Backup and Disaster Recovery
-            "backupdr.googleapis.com/BackupVault",
-            "backupdr.googleapis.com/Backup",
-            "backupdr.googleapis.com/Restore"
+//            "storagetransfer.googleapis.com/AgentPool",
+//            "storagetransfer.googleapis.com/TransferJob",
+//            "storagetransfer.googleapis.com/TransferOperation",
+//
+//            // Backup and Disaster Recovery
+//            "backupdr.googleapis.com/BackupVault",
+//            "backupdr.googleapis.com/Backup",
+//            "backupdr.googleapis.com/Restore"
     );
-
-    public List<Object> storageResources(String projectId) throws Exception {
-        List<Object> storageResourcesList = new ArrayList<>();
-        sortingByAssetType(storageAssets,storageResourcesList,projectId);
-        return storageResourcesList;
-    }
 }
