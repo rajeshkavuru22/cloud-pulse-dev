@@ -239,7 +239,7 @@ public class ResourcesService {
 //            "storage.googleapis.com/NotificationConfig",
 
             // Filestore (Cloud File Storage)
-            "file.googleapis.com/Instance",
+            "file.googleapis.com/Instance"
             //"file.googleapis.com/Backup",
 
             // Persistent Disks (Block Storage)
@@ -250,7 +250,7 @@ public class ResourcesService {
             // Cloud Storage Transfer Service
 //            "storagetransfer.googleapis.com/AgentPool",
 //            "storagetransfer.googleapis.com/TransferJob",
-//            "storagetransfer.googleapis.com/TransferOperation",
+//            "storagetransfer.googleapis.com/TransferOperation"
 //
 //            // Backup and Disaster Recovery
 //            "backupdr.googleapis.com/BackupVault",
