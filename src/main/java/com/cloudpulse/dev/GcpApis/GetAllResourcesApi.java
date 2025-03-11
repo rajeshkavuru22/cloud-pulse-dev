@@ -1,4 +1,4 @@
-package com.cloudpulse.dev.GcpApis.ProjectsApi;
+package com.cloudpulse.dev.GcpApis;
 
 import com.cloudpulse.dev.AuthTokenGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;

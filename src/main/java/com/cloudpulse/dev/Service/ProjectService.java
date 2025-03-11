@@ -1,6 +1,6 @@
 package com.cloudpulse.dev.Service;
 
-import com.cloudpulse.dev.GcpApis.ProjectsApi.GetProjectApi;
+import com.cloudpulse.dev.GcpApis.GetProjectApi;
 import com.cloudpulse.dev.Model.Project;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;

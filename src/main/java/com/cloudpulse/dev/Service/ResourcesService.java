@@ -1,6 +1,6 @@
 package com.cloudpulse.dev.Service;
 
-import com.cloudpulse.dev.GcpApis.ProjectsApi.GetAllResourcesApi;
+import com.cloudpulse.dev.GcpApis.GetAllResourcesApi;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.stereotype.Service;

@@ -1,31 +1,29 @@
-package com.cloudpulse.dev.GcpApis.ProjectsApi;
-
+package com.cloudpulse.dev.GcpApis;
 
 import com.cloudpulse.dev.AuthTokenGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.cloud.resourcemanager.v3.Project;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+import java.util.List;
 
-public class GetProjectApi {
-
-    public static Object getProject(String projectId) throws IOException {
-        String getProjectApiUrl = String.format("https://cloudresourcemanager.googleapis.com/v1/projects/%s",projectId);
+@SuppressWarnings("unchecked")
+public class GetAllAssetsApi {
+    public static List<Object> getAssets(String projectId) throws Exception {
+        String getAllAssetsApiUrl = String.format("https://cloudasset.googleapis.com/v1/projects/%s/assets",projectId);
         String token = AuthTokenGenerator.getAccessToken();
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        //Get Projects
-        ResponseEntity<String> projectResponse = restTemplate.exchange(getProjectApiUrl, HttpMethod.GET, entity, String.class);
-        String apiResponse = projectResponse.getBody();
+        //Get Assets
+        ResponseEntity<String> assetsResponse = restTemplate.exchange(getAllAssetsApiUrl, HttpMethod.GET, entity, String.class);
+        String apiResponse = assetsResponse.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.convertValue(apiResponse,Object.class);
+        return objectMapper.convertValue(apiResponse, List.class);
     }
 }
